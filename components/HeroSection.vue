@@ -117,20 +117,109 @@
         </NuxtLink>
       </div>
 
-      <!-- Demo Section -->
-      <div class="w-full px-2">
-        <div class="max-w-lg mx-auto bg-gray-800 border border-gray-700 rounded-lg p-4">
-          <p class="text-gray-400 text-xs sm:text-sm mb-3 font-mono">Example transformation:</p>
-          <div class="space-y-2">
-            <div class="flex items-center justify-between text-xs sm:text-sm">
-              <span class="text-gray-500">Before:</span>
-              <span class="font-mono text-gray-300 bg-gray-900 px-2 py-1 rounded text-xs">0xAbCd1234...89Ef</span>
+      <!-- Enhanced Demo Section -->
+      <div class="w-full px-2 mt-8">
+        <div class="max-w-2xl mx-auto bg-gray-800 border border-gray-700 rounded-xl overflow-hidden">
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-white mb-4">See it in action</h3>
+            <p class="text-gray-400 text-sm mb-6">Watch how a complex wallet address transforms into a simple, memorable name:</p>
+            
+            <div class="space-y-6">
+              <!-- Input Section -->
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-gray-400">Enter a name to check availability:</label>
+                <div class="flex gap-2">
+                  <input 
+                    type="text" 
+                    v-model="demoName"
+                    placeholder="yourname" 
+                    class="flex-1 bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    @input="updateDemoAddress"
+                  >
+                  <span class="inline-flex items-center px-4 py-2 bg-gray-700 text-gray-300 rounded-lg font-mono text-sm">.nominal</span>
+                </div>
+              </div>
+              
+              <!-- Transformation Animation -->
+              <div class="relative h-32 bg-gray-900/50 rounded-xl p-4 overflow-hidden">
+                <!-- Before -->
+                <div class="absolute inset-0 flex items-center justify-center p-4 transition-all duration-500 ease-in-out" 
+                     :class="{ 'opacity-0 translate-y-4': showTransformed, 'opacity-100': !showTransformed }">
+                  <div class="text-center">
+                    <p class="text-gray-400 text-sm mb-2">Your current address:</p>
+                    <div class="font-mono text-blue-300 bg-gray-800 px-4 py-2 rounded-lg inline-block">
+                      {{ demoAddress }}
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- After -->
+                <div class="absolute inset-0 flex items-center justify-center p-4 transition-all duration-500 ease-in-out" 
+                     :class="{ 'opacity-100': showTransformed, 'opacity-0 -translate-y-4': !showTransformed }">
+                  <div class="text-center">
+                    <p class="text-gray-400 text-sm mb-2">Your Nominal ID:</p>
+                    <div class="text-2xl font-bold text-white bg-gradient-to-r from-blue-400 to-cyan-400 px-6 py-3 rounded-lg inline-flex items-center">
+                      <span>{{ demoName || 'yourname' }}</span>
+                      <span class="text-blue-200 ml-1">.nominal</span>
+                      <svg class="w-5 h-5 ml-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Animated Background -->
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-900/10 to-cyan-900/10 opacity-0 transition-opacity duration-1000" 
+                     :class="{ 'opacity-100': showTransformed }">
+                </div>
+              </div>
+              
+              <!-- Features Grid -->
+              <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mt-4">
+                <div class="bg-gray-900/50 p-3 rounded-lg border border-gray-800">
+                  <div class="text-blue-400 mb-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                  </div>
+                  <p class="text-xs font-medium text-white">One-time payment</p>
+                  <p class="text-xs text-gray-400">No renewals</p>
+                </div>
+                <div class="bg-gray-900/50 p-3 rounded-lg border border-gray-800">
+                  <div class="text-blue-400 mb-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                  </div>
+                  <p class="text-xs font-medium text-white">Lifetime ownership</p>
+                  <p class="text-xs text-gray-400">No expiration</p>
+                </div>
+                <div class="bg-gray-900/50 p-3 rounded-lg border border-gray-800">
+                  <div class="text-blue-400 mb-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                  </div>
+                  <p class="text-xs font-medium text-white">Lightning fast</p>
+                  <p class="text-xs text-gray-400">Instant resolution</p>
+                </div>
+              </div>
             </div>
-            <div class="border-t border-gray-700"></div>
-            <div class="flex items-center justify-between text-xs sm:text-sm">
-              <span class="text-gray-500">After:</span>
-              <span class="font-mono text-blue-400 bg-blue-400/10 px-2 py-1 rounded text-xs">alice</span>
-            </div>
+          </div>
+          
+          <div class="bg-gray-900/50 p-4 border-t border-gray-800">
+            <button 
+              @click="toggleTransformation"
+              class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
+            >
+              <span>{{ showTransformed ? 'Reset Demo' : 'See Transformation' }}</span>
+              <svg v-if="!showTransformed" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+              </svg>
+              <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+              </svg>
+            </button>
           </div>
         </div>
       </div>
@@ -145,6 +234,75 @@
   </section>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      demoName: '',
+      showTransformed: false,
+      demoAddress: '0x1a2b3c4d5e6f7890...',
+      isAvailable: true
+    }
+  },
+  methods: {
+    toggleTransformation() {
+      if (this.demoName) {
+        this.showTransformed = !this.showTransformed;
+        
+        // Auto-reset after 5 seconds if showing transformed state
+        if (this.showTransformed) {
+          setTimeout(() => {
+            this.showTransformed = false;
+          }, 5000);
+        }
+      } else {
+        // Show error or prompt to enter a name
+        this.demoName = 'yourname';
+        this.showTransformed = true;
+        setTimeout(() => {
+          this.showTransformed = false;
+          this.demoName = '';
+        }, 3000);
+      }
+    },
+    updateDemoAddress() {
+      // This could be enhanced with actual address generation logic
+      this.demoAddress = '0x1a2b3c4d5e6f7890' + Math.random().toString(16).substr(2, 6) + '...';
+    }
+  },
+  watch: {
+    demoName(newVal) {
+      if (newVal) {
+        // Simple validation - could be enhanced
+        this.isAvailable = newVal.length >= 3;
+      } else {
+        this.isAvailable = true;
+      }
+    }
+  }
+}
+</script>
+
 <style scoped>
-/* Removed all flashy animations and gradients */
+/* Smooth transitions */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Glow effect on hover */
+.hover-glow:hover {
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+}
+
+/* Subtle pulse animation */
+@keyframes subtlePulse {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 1; }
+}
+
+.animate-subtle-pulse {
+  animation: subtlePulse 3s ease-in-out infinite;
+}
 </style>
